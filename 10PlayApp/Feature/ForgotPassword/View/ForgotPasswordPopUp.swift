@@ -17,6 +17,9 @@ class ForgotPasswordPopUp: SlidePopUpView {
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
+    @IBOutlet weak var textFieldContainer: UIView!
+    var onConfirm: ((String) -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         emailTextField.delegate = self
@@ -28,9 +31,9 @@ class ForgotPasswordPopUp: SlidePopUpView {
         self.layer.cornerRadius = 24
         self.clipsToBounds = true
         
-        // 1. Set Font Families
         headerLabel.font = AppFont.get(.bold, size: 16)
         headerLabel.addCharacterSpacing(kernValue: 1.5)
+        emailTextField.font = AppFont.get(.regular, size: 16)
         
         emailLabel.font = AppFont.get(.extraBold, size: 13)
         emailLabel.textColor = .darkGray
@@ -39,26 +42,23 @@ class ForgotPasswordPopUp: SlidePopUpView {
         okButton.setStyle(weight: .extraBold, size: 16, horizontalPadding: 20, verticalPadding: 20 ,isCapsule: false, kern: 1.5)
     }
     
-    // 3. Update Button State Logic
     private func updateButtonState(isActive: Bool) {
+    }
+        @IBAction func cancelPressed(_ sender: UIButton) {
+            self.dismiss()
+        }
         
-    }
-    
-    @IBAction func cancelPressed(_ sender: UIButton) {
-        self.dismiss()
-    }
-    
-    @IBAction func okPressed(_ sender: UIButton) {
-        self.dismiss()
-    }
+        @IBAction func okPressed(_ sender: UIButton) {
+            let email = emailTextField.text ?? ""
+            onConfirm?(email)
+            self.dismiss()
+        }
 }
 
 // MARK: - UITextFieldDelegate
 extension ForgotPasswordPopUp: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         let text = textField.text ?? ""
-        // Activate if text is not empty (you can add regex here later)
-        updateButtonState(isActive: !text.isEmpty)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

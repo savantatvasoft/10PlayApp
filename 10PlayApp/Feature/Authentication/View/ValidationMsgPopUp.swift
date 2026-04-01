@@ -9,6 +9,7 @@ import UIKit
 
 class ValidationMsgPopUp: SlidePopUpView {
     
+    @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var btnView: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -27,10 +28,26 @@ class ValidationMsgPopUp: SlidePopUpView {
         self.exitDirection = "bottom"
     }
     
-    func configure(with message: String) {
-        errorLabel.text = message
+    func configure(with message: String, isSuccess: Bool = false) {
+            errorLabel.text = message
+        let iconName = isSuccess ? "Ico_info" : "Ico_error"
+            
+        if iconName == "Ico_info" {
+            if let iconImage = UIImage(named: iconName) {
+                self.img.image = iconImage.withRenderingMode(.alwaysTemplate)
+            }
+            if let redColor = UIColor(named: "RedColor") {
+                self.img.tintColor = redColor
+            } else {
+                self.img.tintColor = .systemRed
+                print("⚠️ Warning: 'RedColor' asset not found, using fallback systemRed.")
+            }
+        }
+        else {
+            img.image = UIImage(named: iconName)
+        }
+           
     }
-    
     @IBAction func onPressOk(_ sender: Any) {
         self.dismiss()
     }

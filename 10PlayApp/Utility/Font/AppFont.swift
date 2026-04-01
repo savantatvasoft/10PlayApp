@@ -27,8 +27,6 @@ struct AppFont {
             return font
         }
         
-        // Fallback: Some fonts use "Regular" explicitly, others don't.
-        // If Roboto-Regular fails, try just "Roboto"
         if weight == .regular, let fallback = UIFont(name: family, size: size) {
             return fallback
         }
