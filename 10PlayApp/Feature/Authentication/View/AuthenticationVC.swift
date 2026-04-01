@@ -166,8 +166,10 @@ extension AuthenticationVC {
     }
     
     @objc private func handleBiometricTap() {
-        Task {
-                await viewModel.handleBiometricLogin()
+        biometericIcon.bounce { [weak self] in
+                Task {
+                    await self?.viewModel.handleBiometricLogin()
+                }
             }
     }
     
@@ -187,15 +189,15 @@ extension AuthenticationVC {
     }
     
     private func setupFonts() {
-        emailLabel.font = AppFont.get(.extraBold, size: 14)
+        emailLabel.font = AppFont.get(.extraBold, size: 12)
         emailLabel.addCharacterSpacing(kernValue: 1.5)
-        passwordLabel.font = AppFont.get(.extraBold, size: 14)
+        passwordLabel.font = AppFont.get(.extraBold, size: 12)
         passwordLabel.addCharacterSpacing(kernValue: 1.5)
         email.font = AppFont.get(.regular, size: 16)
         password.font = AppFont.get(.regular, size: 16)
         
-        loginButton.setStyle(weight: .bold, size: 16, horizontalPadding: 20, verticalPadding: 10, kern: 1.5)
-        forgotTextView.setStyle(weight: .bold, size: 14, kern: 1.5)
+        loginButton.setStyle(weight: .bold, size: 14, horizontalPadding: 20, verticalPadding: 10, kern: 1.5)
+        forgotTextView.setStyle(weight: .bold, size: 12, kern: 1.5)
     }
     
     private func setupPasswordToggle() {

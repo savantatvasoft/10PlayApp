@@ -81,4 +81,28 @@ extension UIView {
             return nil
         }
     
+      func bounce(completion: @escaping () -> Void) {
+          
+          // Step 1: animate down
+          UIView.animate(withDuration: 0.1,
+                         delay: 0,
+                         options: [.curveEaseInOut, .allowUserInteraction],
+                         animations: {
+              self.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+          }) { _ in
+              
+              // Step 2: spring back
+              UIView.animate(withDuration: 0.3,
+                             delay: 0,
+                             usingSpringWithDamping: 0.4,
+                             initialSpringVelocity: 4,
+                             options: [.allowUserInteraction],
+                             animations: {
+                  self.transform = .identity
+              }) { _ in
+                  completion()
+              }
+          }
+      }
+    
 }

@@ -31,28 +31,42 @@ class ForgotPasswordPopUp: SlidePopUpView {
         self.layer.cornerRadius = 24
         self.clipsToBounds = true
         
-        headerLabel.font = AppFont.get(.bold, size: 16)
-        headerLabel.addCharacterSpacing(kernValue: 1.5)
-        emailTextField.font = AppFont.get(.regular, size: 16)
+        headerLabel.font = AppFont.get(.bold, size: 14)
+        headerLabel.addCharacterSpacing(kernValue: 1.2)
         
-        emailLabel.font = AppFont.get(.extraBold, size: 13)
+        emailLabel.font = AppFont.get(.extraBold, size: 12)
         emailLabel.textColor = .darkGray
         emailTextField.font = AppFont.get(.regular, size: 14.5)
-        cancelButton.setStyle(weight: .extraBold, size: 16, isCapsule: false, kern: 1.5)
-        okButton.setStyle(weight: .extraBold, size: 16, horizontalPadding: 20, verticalPadding: 20 ,isCapsule: false, kern: 1.5)
+        cancelButton.setStyle(weight: .extraBold, size: 14, isCapsule: false, kern: 1.3)
+        okButton.setStyle(weight: .extraBold, size: 14, horizontalPadding: 20, verticalPadding: 20 ,isCapsule: false, kern: 1.3)
     }
     
     private func updateButtonState(isActive: Bool) {
     }
-        @IBAction func cancelPressed(_ sender: UIButton) {
-            self.dismiss()
-        }
+    @IBAction func cancelPressed(_ sender: UIButton) {
         
-        @IBAction func okPressed(_ sender: UIButton) {
-            let email = emailTextField.text ?? ""
-            onConfirm?(email)
-            self.dismiss()
+        
+        Task { @MainActor in
+            sender.bounce { [weak self] in
+                Task { @MainActor in
+                    self?.dismiss()
+                }
+            }
         }
+    }
+
+    @IBAction func okPressed(_ sender: UIButton) {
+        Task { @MainActor in
+            
+            sender.bounce { [weak self] in
+                Task { @MainActor in
+                    let email = self?.emailTextField.text ?? ""
+                    self?.onConfirm?(email)
+                    self?.dismiss()
+                }
+            }
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate

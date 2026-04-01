@@ -15,6 +15,12 @@
 		<string>Roboto-SemiBold.ttf</string>
 		<string>Roboto-Regular.ttf</string>
 		<string>Roboto-Thin.ttf</string>
+		<string>Gontserrat-Thin.ttf</string>
+		<string>Gontserrat-Bold.ttf</string>
+		<string>Gontserrat-SemiBold.ttf</string>
+		<string>Gontserrat-ExtraBold.ttf</string>
+		<string>Gontserrat-Regular.ttf</string>
+		<string>Gontserrat-Medium.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

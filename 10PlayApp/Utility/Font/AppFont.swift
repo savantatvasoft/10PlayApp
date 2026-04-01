@@ -14,10 +14,13 @@ enum RobotoWeight: String {
     case bold = "Bold"
     case semiBold = "SemiBold"
     case extraBold = "ExtraBold"
+    case light = "Light"
 }
 
 struct AppFont {
-    static let family = "Roboto"
+//    static let family = "Roboto"
+    static let family = "Gontserrat"
+//    Gontserrat-Thin.ttf
 
     static func get(_ weight: RobotoWeight, size: CGFloat) -> UIFont {
         // Try the standard PostScript naming convention first
