@@ -15,9 +15,27 @@ class DashboardVC: UIViewController {
     
     let sideMenu = SliderMenu() // Create the instance
     
+    
+    @IBOutlet weak var missionBtnView: UIButton!
+    
+    @IBOutlet weak var missionLabel: UILabel!
+    
+    @IBOutlet weak var flterLabel: UILabel!
+    
+    @IBOutlet weak var signalLabel: UILabel!
+    
+    
+    @IBOutlet weak var newMissionLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMap()
+        
+        missionLabel.font = AppFont.get(.medium, size: 16)
+        
+        flterLabel.font = AppFont.get(.medium, size: 16)
+        signalLabel.font = AppFont.get(.medium, size: 16)
+        newMissionLabel.font = AppFont.get(.medium, size: 16)
         
         header.onLeftTap = { [weak self] in
             print("onTap")
@@ -25,6 +43,7 @@ class DashboardVC: UIViewController {
             }
     }
 
+    
     
     // MARK: - Setup Map
     private func setupMap() {
