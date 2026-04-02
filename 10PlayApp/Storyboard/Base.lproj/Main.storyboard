@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -304,18 +305,103 @@
                     <view key="view" contentMode="scaleToFill" id="pO1-1O-WQg">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrF-Kz-tfq" userLabel="MainView">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s75-Tu-ugU" customClass="Header" customModule="_0PlayApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="110"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="110" id="BxE-0P-cmE"/>
+                                        </constraints>
+                                    </view>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7y-K1-7oo">
+                                        <rect key="frame" x="0.0" y="110" width="393" height="742"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uas-go-9DY" userLabel="ScrollContentView">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="742"/>
+                                                <subviews>
+                                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7h-xE-J1e">
+                                                        <rect key="frame" x="0.0" y="0.0" width="393" height="742"/>
+                                                        <standardMapConfiguration key="preferredConfiguration"/>
+                                                    </mapView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="o7h-xE-J1e" firstAttribute="leading" secondItem="uas-go-9DY" secondAttribute="leading" id="Mkd-Xp-Fg0"/>
+                                                    <constraint firstAttribute="bottom" secondItem="o7h-xE-J1e" secondAttribute="bottom" id="rd6-1e-Krg"/>
+                                                    <constraint firstItem="o7h-xE-J1e" firstAttribute="top" secondItem="uas-go-9DY" secondAttribute="top" id="sCQ-aB-5LT"/>
+                                                    <constraint firstAttribute="trailing" secondItem="o7h-xE-J1e" secondAttribute="trailing" id="v9k-ir-5Xr"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="uas-go-9DY" firstAttribute="leading" secondItem="Y7y-K1-7oo" secondAttribute="leading" id="6Jt-HK-WWi"/>
+                                            <constraint firstAttribute="bottom" secondItem="uas-go-9DY" secondAttribute="bottom" id="lig-d9-2Ki"/>
+                                            <constraint firstItem="uas-go-9DY" firstAttribute="height" secondItem="Y7y-K1-7oo" secondAttribute="height" priority="250" id="mx9-5z-Hf9"/>
+                                            <constraint firstItem="uas-go-9DY" firstAttribute="width" secondItem="Y7y-K1-7oo" secondAttribute="width" id="rjt-D0-qtp"/>
+                                            <constraint firstItem="uas-go-9DY" firstAttribute="top" secondItem="Y7y-K1-7oo" secondAttribute="top" id="ueJ-aN-mUf"/>
+                                            <constraint firstAttribute="trailing" secondItem="uas-go-9DY" secondAttribute="trailing" id="wLu-4y-kw0"/>
+                                        </constraints>
+                                    </scrollView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_plus" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-Lb-b0s">
+                                        <rect key="frame" x="331" y="702" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="J0F-nC-iMN"/>
+                                            <constraint firstAttribute="width" constant="50" id="son-dE-dBJ"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_10" translatesAutoresizingMaskIntoConstraints="NO" id="7OH-T6-tP0">
+                                        <rect key="frame" x="331" y="772" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="fyE-b3-RUk"/>
+                                            <constraint firstAttribute="width" constant="50" id="td0-P7-wQL"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Y7y-K1-7oo" secondAttribute="trailing" id="BrT-wz-hVH"/>
+                                    <constraint firstAttribute="trailing" secondItem="7OH-T6-tP0" secondAttribute="trailing" constant="12" id="EZR-1L-xwv"/>
+                                    <constraint firstAttribute="trailing" secondItem="s75-Tu-ugU" secondAttribute="trailing" id="FLg-np-FbU"/>
+                                    <constraint firstItem="7OH-T6-tP0" firstAttribute="top" secondItem="uGg-Lb-b0s" secondAttribute="bottom" constant="20" id="Gqu-MZ-QnW"/>
+                                    <constraint firstItem="s75-Tu-ugU" firstAttribute="top" secondItem="xrF-Kz-tfq" secondAttribute="top" id="RKf-Zb-v6d"/>
+                                    <constraint firstItem="Y7y-K1-7oo" firstAttribute="leading" secondItem="xrF-Kz-tfq" secondAttribute="leading" id="asM-Vp-H6W"/>
+                                    <constraint firstItem="Y7y-K1-7oo" firstAttribute="top" secondItem="s75-Tu-ugU" secondAttribute="bottom" id="dfn-Gb-Txf"/>
+                                    <constraint firstAttribute="bottom" secondItem="Y7y-K1-7oo" secondAttribute="bottom" id="edc-Wl-MmS"/>
+                                    <constraint firstAttribute="bottom" secondItem="7OH-T6-tP0" secondAttribute="bottom" constant="30" id="hS6-G1-eR3"/>
+                                    <constraint firstItem="s75-Tu-ugU" firstAttribute="leading" secondItem="xrF-Kz-tfq" secondAttribute="leading" id="iL1-7E-z1n"/>
+                                    <constraint firstAttribute="trailing" secondItem="uGg-Lb-b0s" secondAttribute="trailing" constant="12" id="tgj-nq-yvX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="s55-Kh-8VH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="xrF-Kz-tfq" secondAttribute="bottom" id="71q-AN-73D"/>
+                            <constraint firstAttribute="trailing" secondItem="xrF-Kz-tfq" secondAttribute="trailing" id="HJF-5m-Vu2"/>
+                            <constraint firstItem="xrF-Kz-tfq" firstAttribute="top" secondItem="pO1-1O-WQg" secondAttribute="top" id="dQH-lb-iA7"/>
+                            <constraint firstItem="xrF-Kz-tfq" firstAttribute="leading" secondItem="pO1-1O-WQg" secondAttribute="leading" id="mhc-xB-8fh"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="header" destination="s75-Tu-ugU" id="Gsl-GK-Nms"/>
+                        <outlet property="mapKit" destination="o7h-xE-J1e" id="FEq-E7-zz0"/>
+                        <outlet property="scrollView" destination="Y7y-K1-7oo" id="kXs-Da-ozH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvv-rw-qDA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1023" y="112"/>
+            <point key="canvasLocation" x="884.73282442748086" y="136.61971830985917"/>
         </scene>
     </scenes>
     <resources>
         <image name="Bg_login" width="360" height="640"/>
+        <image name="ic_10" width="33.333332061767578" height="23.666666030883789"/>
         <image name="ic_face_id" width="35" height="35"/>
+        <image name="icon_plus" width="46" height="46"/>
         <image name="splash_10playio_logo" width="150.33332824707031" height="97.666664123535156"/>
         <image name="visibility_off" width="32" height="32"/>
         <namedColor name="RedColor">

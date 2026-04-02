@@ -6,92 +6,55 @@
 //
 
 import UIKit
+import MapKit
 
 class DashboardVC: UIViewController {
-
+    @IBOutlet weak var header: Header!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var mapKit: MKMapView!
+    
+    let sideMenu = SliderMenu() // Create the instance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupMap()
         
-        // 1. Set background color (optional, so you can see the white text)
-        view.backgroundColor = .black
-//        KeychainHelper.shared.delete(for: .apiKey)
-//        KeychainHelper.shared.delete(for: .userId)
-        setupDashboardLabel()
-        setupLogoutButton()
-    }
-    
-    
-    private func setupLogoutButton() {
-            let logoutButton = UIButton(type: .system)
-            logoutButton.setTitle("LOGOUT", for: .normal)
-            
-            // Use your AppFont and setStyle if available, otherwise standard styling
-            logoutButton.titleLabel?.font = AppFont.get(.bold, size: 16)
-            logoutButton.setTitleColor(.white, for: .normal)
-            logoutButton.backgroundColor = UIColor(named: "RedColor") ?? .red
-            logoutButton.layer.cornerRadius = 8
-            logoutButton.translatesAutoresizingMaskIntoConstraints = false
-            
-            logoutButton.addTarget(self, action: #selector(onLogout), for: .touchUpInside)
-            
-            view.addSubview(logoutButton)
-            
-            // Positioning the button at the bottom
-            NSLayoutConstraint.activate([
-                logoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-                logoutButton.widthAnchor.constraint(equalToConstant: 120),
-                logoutButton.heightAnchor.constraint(equalToConstant: 44)
-            ])
-        }
-
-        @objc private func onLogout() {
-            // 1. Clear Session Data
-            KeychainHelper.shared.delete(for: .apiKey)
-            
-            // 2. Note: We DO NOT delete .userId here because we need it for future Biometric logins!
-            
-            // 3. Clear Login Preference
-            UserDefaults.standard.set(false, forKey: "kKEY_LOGIN_PREFS")
-            resetToLogin()
-            // 4. Return to Login Screen (AuthenticationVC)
-            // If your Login screen is the root, you can dismiss or pop
-        }
-    
-    private func resetToLogin() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let authVC = storyboard.instantiateViewController(withIdentifier: "AuthenticationVCID") as? AuthenticationVC else { return }
-        
-        // Wrap in NavigationController if your app uses one
-        let navVC = UINavigationController(rootViewController: authVC)
-        navVC.isNavigationBarHidden = true // Match your cinematic style
-        
-        // Get the window and perform a smooth transition
-        if let window = view.window {
-            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromRight, animations: {
-                window.rootViewController = navVC
-            }, completion: nil)
-        }
+        header.onLeftTap = { [weak self] in
+            print("onTap")
+                self?.sideMenu.show(in: self!.view) // Just shows the existing instance
+            }
     }
 
-    private func setupDashboardLabel() {
-        let dashboardLabel = UILabel()
-        dashboardLabel.text = "DASHBOARD"
-        dashboardLabel.textColor = .white
-        dashboardLabel.font = AppFont.get(.bold, size: 24)
-        dashboardLabel.addCharacterSpacing(kernValue: 2.0)
-        dashboardLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+    // MARK: - Setup Map
+    private func setupMap() {
+        mapKit.delegate = self
+        mapKit.layer.cornerRadius = 12
+        mapKit.clipsToBounds = true
+
+        let initialLocation = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
         
-        // 5. Add to the view hierarchy
-        view.addSubview(dashboardLabel)
+        let region = MKCoordinateRegion(
+            center: initialLocation,
+            latitudinalMeters: 1000,
+            longitudinalMeters: 1000
+        )
         
-        // 6. Set Constraints (Center X and Center Y)
-        NSLayoutConstraint.activate([
-            dashboardLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            dashboardLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        mapKit.setRegion(region, animated: true)
         
-        print("PreferenceManager.hasAskedBiometric : \(PreferenceManager.hasAskedBiometric) and PreferenceManager.isHardwareReady \(PreferenceManager.isHardwareReady)")
+        // 3. Add a Point of Interest (Annotation)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = initialLocation
+        annotation.title = "10Play Event"
+        annotation.subtitle = "Join the cinematic experience"
+        mapKit.addAnnotation(annotation)
+        
+        // 4. Cinematic styling for iOS 16+
+        if #available(iOS 16.0, *) {
+            let config = MKStandardMapConfiguration(emphasisStyle: .muted)
+            config.pointOfInterestFilter = .excludingAll
+            mapKit.preferredConfiguration = config
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +66,7 @@ class DashboardVC: UIViewController {
         
         guard !PreferenceManager.hasAskedBiometric && PreferenceManager.isHardwareReady else {
             
-                return
+            return
         }
         
         guard let forgotView = Bundle.main.loadNibNamed("ForgotPasswordPopUp", owner: nil)?.first as? ForgotPasswordPopUp else { return }
@@ -119,7 +82,7 @@ class DashboardVC: UIViewController {
         forgotView.emailLabel.addCharacterSpacing(kernValue: 1)
         forgotView.textFieldContainer.isHidden = true
         forgotView.emailTextField.isHidden = true
-    
+        
         let popupWidth = self.view.frame.width
         let targetSize = CGSize(width: popupWidth, height: UIView.layoutFittingCompressedSize.height)
         let dynamicSize = forgotView.systemLayoutSizeFitting(
@@ -146,5 +109,26 @@ class DashboardVC: UIViewController {
         PreferenceManager.hasAskedBiometric = true
         PreferenceManager.isBiometricEnabled = false
         // The popup will dismiss itself via its internal cancelPressed logic
+    }
+}
+
+extension DashboardVC: MKMapViewDelegate {
+   
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        
+        let identifier = "EventMarker"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+        
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.markerTintColor = .systemBlue // Matches 10PlayApp theme
+            annotationView?.glyphImage = UIImage(systemName: "play.fill")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        return annotationView
     }
 }
