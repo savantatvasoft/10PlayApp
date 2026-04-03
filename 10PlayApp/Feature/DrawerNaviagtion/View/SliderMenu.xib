@@ -39,6 +39,9 @@
                             </constraints>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="Ico_back_nav_menu"/>
+                            <connections>
+                                <action selector="hideDrawer:" destination="-1" eventType="touchUpInside" id="Rao-hs-8Ng"/>
+                            </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_10playio_logo" translatesAutoresizingMaskIntoConstraints="NO" id="2r6-k2-viP">
                             <rect key="frame" x="65" y="115" width="120" height="120"/>
@@ -65,6 +68,9 @@
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="Ico_nav_home" title="HOME" imagePadding="20"/>
+                                                    <connections>
+                                                        <action selector="onPressHome:" destination="-1" eventType="touchUpInside" id="ElO-YY-78r"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -85,6 +91,9 @@
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="person.fill" catalog="system" title="ACCOUNT" imagePadding="20"/>
+                                                    <connections>
+                                                        <action selector="onPressAccount:" destination="-1" eventType="touchUpInside" id="yts-UQ-KNH"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -105,6 +114,9 @@
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="phone.fill" catalog="system" title="CONTACT" imagePadding="20"/>
+                                                    <connections>
+                                                        <action selector="onPressContact:" destination="-1" eventType="touchUpInside" id="mPg-Pb-cTO"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -155,6 +167,9 @@
                                     <color key="tintColor" name="RedColor"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" title="LOG OUT"/>
+                                    <connections>
+                                        <action selector="onPressLogout:" destination="-1" eventType="touchUpInside" id="JZG-h2-8Gz"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10Play.IO - v1.0.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQu-4L-3Ib">
                                     <rect key="frame" x="60.333333333333329" y="556.66666666666663" width="129.66666666666669" height="20.333333333333371"/>

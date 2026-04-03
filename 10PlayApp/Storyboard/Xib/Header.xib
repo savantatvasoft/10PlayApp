@@ -3,12 +3,15 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Header" customModule="_0PlayApp" customModuleProvider="target">
             <connections>
+                <outlet property="centerIcon" destination="vRT-jF-IRA" id="egN-1i-DYK"/>
+                <outlet property="centerTitle" destination="txt-Lv-e07" id="95N-wf-MEU"/>
                 <outlet property="contentView" destination="y6R-t3-GUY" id="Rj6-dg-pYX"/>
                 <outlet property="leftImage" destination="UCe-b3-RTl" id="Crt-Xr-eUx"/>
                 <outlet property="rightImage" destination="zqe-xS-eyL" id="7l1-KX-U9K"/>
@@ -40,7 +43,7 @@
                                     </connections>
                                 </button>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="W2e-nh-udP">
-                                    <rect key="frame" x="146" y="73" width="100" height="30"/>
+                                    <rect key="frame" x="141.66666666666666" y="73" width="100" height="30"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerWhite" translatesAutoresizingMaskIntoConstraints="NO" id="vRT-jF-IRA">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
@@ -61,14 +64,15 @@
                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqe-xS-eyL">
-                                    <rect key="frame" x="366" y="77" width="26" height="26"/>
+                                    <rect key="frame" x="348.33333333333331" y="77" width="43.666666666666686" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="HXH-fy-Rix"/>
-                                        <constraint firstAttribute="width" constant="26" id="v79-f9-YwR"/>
                                     </constraints>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" image="info.circle.fill" catalog="system"/>
+                                    <buttonConfiguration key="configuration" style="plain">
+                                        <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="medium"/>
+                                    </buttonConfiguration>
                                     <connections>
                                         <action selector="onPressRight:" destination="-1" eventType="touchUpInside" id="jUB-ad-T07"/>
                                     </connections>

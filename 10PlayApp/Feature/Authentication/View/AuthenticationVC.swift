@@ -19,8 +19,8 @@ class AuthenticationVC: UIViewController {
     @IBOutlet weak var passwordVisibilityIcon: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var forgotTextView: UIButton!
-    
     @IBOutlet weak var biometericIcon: UIImageView!
+    
     private var keyboardManager: KeyboardManager?
     var loadingOverlay: LoadingOverlayView?
     private let viewModel = AuthenticationVM()

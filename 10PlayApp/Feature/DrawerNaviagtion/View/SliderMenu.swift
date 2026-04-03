@@ -4,101 +4,6 @@
 ////
 ////  Created by savan soni on 02/04/26.
 ////
-//
-//import UIKit
-//
-//class SliderMenu: UIView, UIGestureRecognizerDelegate {
-//    
-//    @IBOutlet weak var homeButton: UIButton!
-//    @IBOutlet weak var contactButton: UIButton!
-//    @IBOutlet weak var accountButton: UIButton!
-//    @IBOutlet weak var contentView: UIView!
-//    
-//    @IBOutlet weak var userSupportLabel: UILabel!
-//    
-//    @IBOutlet weak var supportView: UIView!
-//    
-//    
-//    private let drawerWidth: CGFloat = 250
-//    private var isPresented = false
-//    
-//    // MARK: - Initializers
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        commonInit()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        commonInit()
-//    }
-//    
-//    private func commonInit() {
-//        Bundle.main.loadNibNamed("SliderMenu", owner: self, options: nil)
-//        self.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-//        addSubview(contentView)
-//        contentView.frame = CGRect(x: -drawerWidth, y: 0, width: drawerWidth, height: UIScreen.main.bounds.height)
-//        contentView.autoresizingMask = [.flexibleHeight]
-//        contentView.clipsToBounds = false
-//        
-//        let outsideTap = UITapGestureRecognizer(target: self, action: #selector(hide))
-//        outsideTap.cancelsTouchesInView = false
-//        outsideTap.delegate = self
-//        self.addGestureRecognizer(outsideTap)
-//        
-////        homeButton.setStyle(weight: .extraBold, size: 20)
-////        accountButton.setStyle(weight: .extraBold, size: 20)
-////        contactButton.setStyle(weight: .extraBold, size: 20)
-//        
-////        userSupportLabel.font = AppFont.get(.regular, size: 14)
-//    }
-//    
-//    func show(in parentView: UIView) {
-//        guard !isPresented else { return }
-//        isPresented = true
-//        self.frame = parentView.bounds
-//        self.alpha = 1.0
-//        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        
-//        if self.superview == nil {
-//            parentView.addSubview(self)
-//        }
-//        
-//        parentView.bringSubviewToFront(self)
-//        contentView.frame = CGRect(x: -drawerWidth, y: 0, width: drawerWidth, height: parentView.bounds.height)
-//        
-//        UIView.animate(withDuration: 0.3,
-//                       delay: 0,
-//                       options: [.curveEaseOut],
-//                       animations: {
-//            self.contentView.frame.origin.x = 0
-//        })
-//    }
-//    
-//    @objc func hide() {
-//        UIView.animate(withDuration: 0.25,
-//                       delay: 0,
-//                       options: [.curveEaseIn],
-//                       animations: {
-//            self.contentView.frame.origin.x = -self.drawerWidth
-//        }) { _ in
-//            self.isPresented = false
-//            self.removeFromSuperview()
-//        }
-//    }
-//    
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//        let point = touch.location(in: self)
-//        return point.x > drawerWidth
-//    }
-//    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        self.frame.size = self.superview?.bounds.size ?? self.bounds.size
-//        let currentX = contentView.frame.origin.x
-//        contentView.frame = CGRect(x: currentX, y: 0, width: drawerWidth, height: self.bounds.height)
-//    }
-//}
 
 
 import UIKit
@@ -114,12 +19,15 @@ class SliderMenu: UIView, UIGestureRecognizerDelegate {
     @IBOutlet weak var logoutView: UIButton!
     @IBOutlet weak var rgpdView: UIButton!
     @IBOutlet weak var syncView: UIView!
-    
     @IBOutlet weak var syncLabel: UILabel!
-    
     @IBOutlet weak var bottomVersonLabel: UILabel!
+    
+    
+    var onMenuTap: ((MenuAction) -> Void)?
+    
     private let drawerWidth: CGFloat = 250
     private var isPresented = false
+    private var dimLayer: CALayer?
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -138,12 +46,8 @@ class SliderMenu: UIView, UIGestureRecognizerDelegate {
 
         self.backgroundColor = .clear
         contentView.backgroundColor = .black
-        contentView.clipsToBounds = false  // ✅ false — clipping hides subviews that overflow during layout
-
+        contentView.clipsToBounds = false
         addSubview(contentView)
-
-        // ✅ CRITICAL: since we're setting frame manually,
-        // we must tell AutoLayout NOT to translate the autoresizing mask
         contentView.translatesAutoresizingMaskIntoConstraints = true
         contentView.autoresizingMask = [.flexibleHeight]
         contentView.frame = CGRect(x: -drawerWidth, y: 0, width: drawerWidth, height: UIScreen.main.bounds.height)
@@ -180,16 +84,13 @@ class SliderMenu: UIView, UIGestureRecognizerDelegate {
         }
 
         parentView.bringSubviewToFront(self)
-
-        // ✅ Start contentView off-screen to the left
+        
         contentView.frame = CGRect(x: -drawerWidth, y: 0, width: drawerWidth, height: parentView.bounds.height)
 
-        // ✅ Animate dim overlay + slide in drawer together
         UIView.animate(withDuration: 0.3,
                        delay: 0,
                        options: [.curveEaseOut],
                        animations: {
-            // Half black (left 250pt) + transparent (right side) via gradient layer
             self.applyDimOverlay()
             self.contentView.frame.origin.x = 0
         })
@@ -210,22 +111,17 @@ class SliderMenu: UIView, UIGestureRecognizerDelegate {
         }
     }
 
-    // MARK: - Dim Overlay (left = opaque black, right = transparent)
-    private var dimLayer: CALayer?
-
     private func applyDimOverlay() {
         dimLayer?.removeFromSuperlayer()
 
         let overlay = CAGradientLayer()
         overlay.frame = self.bounds
-
-        // ✅ Left side (drawer area): semi-black | Right side: fully transparent
         overlay.startPoint = CGPoint(x: 0, y: 0.5)
         overlay.endPoint   = CGPoint(x: 1, y: 0.5)
 
         let drawerRatio = drawerWidth / self.bounds.width
         overlay.colors = [
-            UIColor.black.withAlphaComponent(0.85).cgColor,  // behind drawer
+            UIColor.black.withAlphaComponent(0.85).cgColor,
             UIColor.black.withAlphaComponent(0.4).cgColor,   // just past drawer edge
             UIColor.black.withAlphaComponent(0.0).cgColor    // far right = transparent
         ]
@@ -274,5 +170,29 @@ class SliderMenu: UIView, UIGestureRecognizerDelegate {
         bottom.frame = CGRect(x: 0, y: view.bounds.height - thickness, width: view.bounds.width, height: thickness)
         bottom.backgroundColor = color.cgColor
         view.layer.addSublayer(bottom)
+    }
+    
+    
+    @IBAction func hideDrawer(_ sender: Any) {
+        hide()
+    }
+    @IBAction func onPressHome(_ sender: Any) {
+        onMenuTap?(.home)
+        hide()
+    }
+
+    @IBAction func onPressAccount(_ sender: Any) {
+        onMenuTap?(.account)
+        hide()
+    }
+
+    @IBAction func onPressContact(_ sender: Any) {
+        onMenuTap?(.contact)
+        hide()
+    }
+
+    @IBAction func onPressLogout(_ sender: Any) {
+        onMenuTap?(.logout)
+        hide()
     }
 }

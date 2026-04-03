@@ -13,7 +13,8 @@ class Header: UIView {
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var title: UILabel!
     
-    // Now these are buttons for instant response
+    @IBOutlet weak var centerTitle: UILabel!
+    @IBOutlet weak var centerIcon: UIImageView!
     @IBOutlet weak var leftImage: UIButton!
     @IBOutlet weak var rightImage: UIButton!
     
@@ -42,6 +43,9 @@ class Header: UIView {
         
         view.frame = self.bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        centerTitle.isHidden = true
+        centerTitle.font =  AppFont.get(.extraBold, size: 16)
         addSubview(view)
     }
     
@@ -57,7 +61,11 @@ class Header: UIView {
     
     // MARK: - Configuration
     func configure(headerTitle: String, leftIcon: UIImage? = nil, rightIcon: UIImage? = nil) {
-        title.text = headerTitle
+        
+        if !headerTitle.isEmpty {
+            centerTitle.isHidden = false
+            centerTitle.text = headerTitle
+        }
         
         // Use setImage for buttons instead of .image
         if let left = leftIcon {

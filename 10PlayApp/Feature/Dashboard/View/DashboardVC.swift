@@ -8,49 +8,149 @@
 import UIKit
 import MapKit
 
-class DashboardVC: UIViewController {
+class DashboardVC: BaseViewController {
+    
     @IBOutlet weak var header: Header!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var mapKit: MKMapView!
-    
-    let sideMenu = SliderMenu() // Create the instance
-    
-    
     @IBOutlet weak var missionBtnView: UIButton!
-    
     @IBOutlet weak var missionLabel: UILabel!
-    
     @IBOutlet weak var flterLabel: UILabel!
-    
     @IBOutlet weak var signalLabel: UILabel!
-    
-    
     @IBOutlet weak var newMissionLabel: UILabel!
+    @IBOutlet weak var listOfFilterVIew: UIStackView!
+    @IBOutlet weak var missionContainer: UIStackView!
+    @IBOutlet weak var filterMapContainer: UIStackView!
+    @IBOutlet weak var newMIssionContainer: UIStackView!
+    @IBOutlet weak var signalsConatiner: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMap()
-        
-        missionLabel.font = AppFont.get(.medium, size: 16)
-        
-        flterLabel.font = AppFont.get(.medium, size: 16)
-        signalLabel.font = AppFont.get(.medium, size: 16)
-        newMissionLabel.font = AppFont.get(.medium, size: 16)
-        
-        header.onLeftTap = { [weak self] in
-            print("onTap")
-                self?.sideMenu.show(in: self!.view) // Just shows the existing instance
-            }
+        setup()
+        attachHeader(header)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        showValidationPopup()
+    }
     
+    
+    @IBAction func onPressToggle(_ sender: UIButton) {
+        if listOfFilterVIew.isHidden {
+            showFilterView()
+            rotateButton(sender, expanded: true)
+        } else {
+            hideFilterView()
+            rotateButton(sender, expanded: false)
+        }
+    }
+    
+}
+
+extension DashboardVC {
+    
+    func setup() {
+        
+        setupMap()
+        prepareFilterView()
+        
+        let labels = [missionLabel, flterLabel, signalLabel, newMissionLabel]
+        
+        labels.forEach {
+            $0?.font = AppFont.get(.extraBold, size: 14)
+        }
+        
+    }
+    
+    func rotateButton(_ button: UIButton, expanded: Bool) {
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 0.5,
+            options: [.curveEaseInOut],
+            animations: {
+                button.transform = expanded
+                    ? CGAffineTransform(rotationAngle: .pi / 4)
+                    : .identity
+            }
+        )
+    }
+    
+    func prepareFilterView() {
+        listOfFilterVIew.isHidden = false
+        listOfFilterVIew.transform = CGAffineTransform(translationX: 150, y: 0)
+        listOfFilterVIew.alpha = 0
+        listOfFilterVIew.arrangedSubviews.forEach {
+            $0.transform = CGAffineTransform(translationX: 200, y: 0)
+            $0.alpha = 0
+        }
+    }
+    
+    func hideFilterView() {
+
+        for (index, view) in listOfFilterVIew.arrangedSubviews.enumerated() {
+            UIView.animate(
+                withDuration: 0.2,
+                delay: 0.03 * Double(index),
+                options: [.curveEaseIn],
+                animations: {
+                    view.transform = CGAffineTransform(translationX: 200, y: 0)
+                    view.alpha = 0
+                }
+            )
+        }
+        
+        UIView.animate(
+            withDuration: 0.25,
+            delay: 0.1,
+            options: [.curveEaseIn],
+            animations: {
+                self.listOfFilterVIew.transform = CGAffineTransform(translationX: 150, y: 0)
+                self.listOfFilterVIew.alpha = 0
+            },
+            completion: { _ in
+                self.listOfFilterVIew.isHidden = true
+            }
+        )
+    }
+    
+    func showFilterView() {
+        listOfFilterVIew.isHidden = false
+        UIView.animate(
+            withDuration: 0.35,
+            delay: 0,
+            usingSpringWithDamping: 0.85,
+            initialSpringVelocity: 0.5,
+            options: [.curveEaseOut],
+            animations: {
+                self.listOfFilterVIew.transform = .identity
+                self.listOfFilterVIew.alpha = 1
+            }
+        )
+        
+        for (index, view) in listOfFilterVIew.arrangedSubviews.enumerated() {
+            UIView.animate(
+                withDuration: 0.4,
+                delay: 0.05 * Double(index),
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 0.5,
+                options: [.curveEaseOut],
+                animations: {
+                    view.transform = .identity
+                    view.alpha = 1
+                }
+            )
+        }
+    }
     
     // MARK: - Setup Map
     private func setupMap() {
         mapKit.delegate = self
         mapKit.layer.cornerRadius = 12
         mapKit.clipsToBounds = true
-
+        
         let initialLocation = CLLocationCoordinate2D(latitude: 40.7128, longitude: -74.0060)
         
         let region = MKCoordinateRegion(
@@ -61,24 +161,17 @@ class DashboardVC: UIViewController {
         
         mapKit.setRegion(region, animated: true)
         
-        // 3. Add a Point of Interest (Annotation)
         let annotation = MKPointAnnotation()
         annotation.coordinate = initialLocation
         annotation.title = "10Play Event"
         annotation.subtitle = "Join the cinematic experience"
         mapKit.addAnnotation(annotation)
         
-        // 4. Cinematic styling for iOS 16+
         if #available(iOS 16.0, *) {
             let config = MKStandardMapConfiguration(emphasisStyle: .muted)
             config.pointOfInterestFilter = .excludingAll
             mapKit.preferredConfiguration = config
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        showValidationPopup()
     }
     
     private func showValidationPopup() {
@@ -127,12 +220,13 @@ class DashboardVC: UIViewController {
     @objc private func handleBiometricDecline() {
         PreferenceManager.hasAskedBiometric = true
         PreferenceManager.isBiometricEnabled = false
-        // The popup will dismiss itself via its internal cancelPressed logic
     }
+    
 }
 
+
 extension DashboardVC: MKMapViewDelegate {
-   
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
         
