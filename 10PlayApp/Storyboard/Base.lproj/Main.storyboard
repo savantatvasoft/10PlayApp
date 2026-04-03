@@ -653,7 +653,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="742"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Vc3-f8-Sid">
-                                                        <rect key="frame" x="0.0" y="10" width="393" height="282"/>
+                                                        <rect key="frame" x="0.0" y="10" width="393" height="398"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0l-PS-YMZ" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
@@ -690,6 +690,20 @@
                                                                     <constraint firstAttribute="height" constant="50" id="aZ4-gd-gN0"/>
                                                                 </constraints>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHC-WN-O4d" userLabel="Directional" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="290" width="393" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="WLw-Pi-Tvr"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yUG-C1-aHd" userLabel="Biometric" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="348" width="393" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="aIp-yw-5rW"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
@@ -711,16 +725,37 @@
                                             <constraint firstAttribute="bottom" secondItem="b8M-Lm-DZY" secondAttribute="bottom" id="mAU-5p-9L9"/>
                                         </constraints>
                                     </scrollView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wUf-KR-Zaw">
+                                        <rect key="frame" x="0.0" y="732" width="393" height="120"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ygw-kv-wvy">
+                                                <rect key="frame" x="164" y="43" width="65.333333333333314" height="34.333333333333343"/>
+                                                <color key="backgroundColor" name="RedColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="SAVE" cornerStyle="capsule"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="ygw-kv-wvy" firstAttribute="centerX" secondItem="wUf-KR-Zaw" secondAttribute="centerX" id="3i7-xl-7kJ"/>
+                                            <constraint firstItem="ygw-kv-wvy" firstAttribute="centerY" secondItem="wUf-KR-Zaw" secondAttribute="centerY" id="COa-Ya-oDO"/>
+                                            <constraint firstAttribute="height" constant="120" id="yRR-0t-76a"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="OpX-FD-5Nr" secondAttribute="trailing" id="15b-H2-kBf"/>
+                                    <constraint firstAttribute="trailing" secondItem="wUf-KR-Zaw" secondAttribute="trailing" id="699-7C-r94"/>
                                     <constraint firstAttribute="trailing" secondItem="VKr-kU-TaY" secondAttribute="trailing" id="KtR-u0-hMv"/>
                                     <constraint firstItem="OpX-FD-5Nr" firstAttribute="leading" secondItem="MX7-Pm-qow" secondAttribute="leading" id="Mhp-TH-1hC"/>
                                     <constraint firstAttribute="bottom" secondItem="OpX-FD-5Nr" secondAttribute="bottom" id="N9x-f5-TGq"/>
                                     <constraint firstItem="VKr-kU-TaY" firstAttribute="leading" secondItem="MX7-Pm-qow" secondAttribute="leading" id="Wmp-x2-SIa"/>
                                     <constraint firstItem="OpX-FD-5Nr" firstAttribute="top" secondItem="VKr-kU-TaY" secondAttribute="bottom" id="ZT8-Ru-1m8"/>
+                                    <constraint firstItem="wUf-KR-Zaw" firstAttribute="leading" secondItem="MX7-Pm-qow" secondAttribute="leading" id="fin-nO-SVM"/>
                                     <constraint firstItem="VKr-kU-TaY" firstAttribute="top" secondItem="MX7-Pm-qow" secondAttribute="top" id="jSh-xb-LZ0"/>
+                                    <constraint firstAttribute="bottom" secondItem="wUf-KR-Zaw" secondAttribute="bottom" id="v5T-Dw-xOq"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -734,12 +769,16 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="biometric" destination="yUG-C1-aHd" id="rta-TQ-EyX"/>
+                        <outlet property="bottomView" destination="wUf-KR-Zaw" id="X4x-4F-Fet"/>
+                        <outlet property="directional" destination="vHC-WN-O4d" id="3yv-oY-aRt"/>
                         <outlet property="email" destination="v4Q-np-FMo" id="a42-TV-c27"/>
                         <outlet property="firstName" destination="k0l-PS-YMZ" id="du8-8y-g7g"/>
                         <outlet property="header" destination="VKr-kU-TaY" id="rfM-Ta-Xv3"/>
                         <outlet property="lastName" destination="hF3-ls-IJH" id="xXV-dC-5ls"/>
                         <outlet property="password" destination="lOW-BL-eDD" id="rgb-TR-B0a"/>
                         <outlet property="phoneNumber" destination="cmE-t9-vya" id="IXo-fq-MkO"/>
+                        <outlet property="saveBtn" destination="ygw-kv-wvy" id="bP1-K6-kWi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sg8-og-16r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

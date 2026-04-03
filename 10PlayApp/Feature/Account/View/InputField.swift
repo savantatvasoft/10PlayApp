@@ -8,84 +8,38 @@
 import UIKit
 
 class InputField: UIView, UITextFieldDelegate {
-
+    
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var titleLabel: UITextField!
     @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var rightSwitch: UISwitch!
     
     private let bottomBorder = CALayer()
+    var onToggleChanged: ((Bool) -> Void)?
     
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
-
-    // MARK: - Lifecycle
-    private func commonInit() {
-        Bundle.main.loadNibNamed("InputField", owner: self, options: nil)
-        addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: self.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        ])
-
-        titleLabel.delegate = self
-        setupStyle()
+    
+    // MARK: - Actions
+    @IBAction func onToggleAction(_ sender: UISwitch) {
+        onToggleChanged?(sender.isOn)
     }
     
-    private func setupStyle() {
-        bottomBorder.backgroundColor = UIColor.systemGray4.cgColor
-        mainView.layer.addSublayer(bottomBorder)
-        
-        topLabel.font = AppFont.get(.extraBold, size: 13)
-        titleLabel.font = AppFont.get(.regular, size: 13)
-        mainView.clipsToBounds = false
-        
-        // Ensure the field starts as non-editable
-        titleLabel.isUserInteractionEnabled = false
-    }
-
-    func configure(title: String,
-                   value: String?,
-                   placeholder: String = "",
-                   isEditable: Bool = true,
-                   isPassword: Bool = false) {
-        
-        topLabel.text = title.uppercased()
-        titleLabel.text = value
-        titleLabel.placeholder = placeholder
-        titleLabel.isSecureTextEntry = isPassword
-       
-    }
-
-    // MARK: - Actions
     @IBAction func onPressRigthIcon(_ sender: UIButton) {
         titleLabel.isUserInteractionEnabled = true
         titleLabel.becomeFirstResponder()
     }
-    
-    // MARK: - UITextFieldDelegate
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.isUserInteractionEnabled = false
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
+        
     // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -99,4 +53,69 @@ class InputField: UIView, UITextFieldDelegate {
             height: borderHeight
         )
     }
+}
+
+
+extension InputField {
+    
+    private func commonInit() {
+        Bundle.main.loadNibNamed("InputField", owner: self, options: nil)
+        addSubview(contentView)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+        
+        titleLabel.delegate = self
+        setupStyle()
+    }
+     
+    private func setupStyle() {
+        bottomBorder.backgroundColor = UIColor.systemGray4.cgColor
+        mainView.layer.addSublayer(bottomBorder)
+        
+        topLabel.font = AppFont.get(.extraBold, size: 13)
+        titleLabel.font = AppFont.get(.regular, size: 14)
+        mainView.clipsToBounds = false
+        titleLabel.isUserInteractionEnabled = false
+    }
+    
+    func configure(title: String,
+                   value: String?,
+                   placeholder: String = "",
+                   isEditable: Bool = true,
+                   isPassword: Bool = false,
+                   showToggle: Bool = false,
+                   toggleState: Bool = false) {
+        
+        topLabel.text = title.uppercased()
+        titleLabel.text = value
+        titleLabel.placeholder = placeholder
+        titleLabel.isSecureTextEntry = isPassword
+
+        if showToggle {
+            rightSwitch.isHidden = false
+            rightButton.isHidden = true
+            rightSwitch.isOn = toggleState
+            titleLabel.isUserInteractionEnabled = false
+        } else {
+            rightSwitch.isHidden = true
+            rightButton.isHidden = !isEditable
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.isUserInteractionEnabled = false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
 }

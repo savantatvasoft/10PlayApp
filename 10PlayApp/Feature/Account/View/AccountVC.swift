@@ -15,6 +15,10 @@ class AccountVC: BaseViewController {
     @IBOutlet weak var phoneNumber: InputField!
     @IBOutlet weak var email: InputField!
     @IBOutlet weak var password: InputField!
+    @IBOutlet weak var biometric: InputField!
+    @IBOutlet weak var directional: InputField!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var saveBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +46,11 @@ extension AccountVC {
             value: "shahh"
         )
         
-        // Last Name
         lastName.configure(
             title: "last_name_title".localized,
             value: "Kruti"
         )
         
-        // Phone Number
         phoneNumber.configure(
             title: "phone_number_title".localized,
             value: "9428151966"
@@ -67,6 +69,23 @@ extension AccountVC {
             isPassword: true
         )
         
+        directional.titleLabel.font = AppFont.get(.regular, size: 11)
+        directional.configure(
+            title: "directional_title".localized,
+            value: "directional_label".localized,
+            showToggle: true,
+            toggleState: true
+        )
+        
+        biometric.titleLabel.isHidden = true
+        biometric.configure(
+            title: "biometric_title".localized,
+            value: nil,
+            showToggle: true,
+            toggleState: false
+        )
+        
+        saveBtn.setStyle(weight: .extraBold, size: 13,horizontalPadding: 30,verticalPadding: 10)
     }
     
     
