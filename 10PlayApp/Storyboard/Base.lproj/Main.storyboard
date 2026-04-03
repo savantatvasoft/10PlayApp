@@ -652,24 +652,45 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8M-Lm-DZY" userLabel="ScrollContentView">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="742"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Vc3-f8-Sid">
-                                                        <rect key="frame" x="0.0" y="10" width="393" height="400"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Vc3-f8-Sid">
+                                                        <rect key="frame" x="0.0" y="10" width="393" height="282"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0l-PS-YMZ" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
-                                                                <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="ijy-oA-dhd"/>
                                                                 </constraints>
                                                             </view>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2lx-1g-dTY">
-                                                                <rect key="frame" x="0.0" y="50" width="393" height="350"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hF3-ls-IJH" userLabel="LastName" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="58" width="393" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="25U-Vf-m3n"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmE-t9-vya" userLabel="phoneNumber" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="116" width="393" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="LT7-4m-oOo"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v4Q-np-FMo" userLabel="email" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="174" width="393" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="3uP-GI-h7v"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOW-BL-eDD" userLabel="password" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="232" width="393" height="50"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="aZ4-gd-gN0"/>
+                                                                </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="400" id="Ujm-DU-vlt"/>
-                                                        </constraints>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -713,7 +734,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="email" destination="v4Q-np-FMo" id="a42-TV-c27"/>
+                        <outlet property="firstName" destination="k0l-PS-YMZ" id="du8-8y-g7g"/>
                         <outlet property="header" destination="VKr-kU-TaY" id="rfM-Ta-Xv3"/>
+                        <outlet property="lastName" destination="hF3-ls-IJH" id="xXV-dC-5ls"/>
+                        <outlet property="password" destination="lOW-BL-eDD" id="rgb-TR-B0a"/>
+                        <outlet property="phoneNumber" destination="cmE-t9-vya" id="IXo-fq-MkO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sg8-og-16r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -752,9 +778,6 @@
         <namedColor name="RedColor">
             <color red="0.81999999284744263" green="0.17299999296665192" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

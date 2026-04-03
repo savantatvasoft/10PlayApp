@@ -8,3 +8,11 @@
 
 "account_title" = "Account";
 "logout" = "LOGOUT";
+"first_name_title" = "FIRST NAME";
+"last_name_title" = "LAST NAME";
+"phone_number_title" = "PHONE NUMBER";
+"email_title" = "E-MAIL";
+"password_title" = "PASSWORD";
+"directional_title" = "DIRECTIONAL(OPTIONAL)";
+"directional_label" = "To dispplay directions and guide you to the next mission";
+"biometric_title" = "BIOMETRIC AUTHENTICATION";
