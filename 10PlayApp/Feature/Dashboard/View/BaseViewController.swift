@@ -91,18 +91,9 @@ extension BaseViewController {
     }
     
     private func executeLogoutSequence() {
-        // 1. Clear Keychain (Sensitive)
         KeychainHelper.shared.delete(for: .apiKey)
-//        KeychainHelper.shared.delete(for: .userId)
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: UserDefaultKeys.userEmail.rawValue)
-        
-        /* DO NOT DO THIS:
-           defaults.removeObject(forKey: UserDefaultKeys.isBiometricEnabled.rawValue)
-           
-           If you previously cleared all keys, that is why the icon disappeared.
-        */
-
         navigateToAuthentication()
     }
     

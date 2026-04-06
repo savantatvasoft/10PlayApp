@@ -20,10 +20,8 @@ class AuthenticationVM {
     
     // MARK: - Dependency Injection
     var apiService: APIServiceProtocol = APIService.shared
-    
     let loginTrigger = PassthroughSubject<Void, Never>()
     let biometricLoginResult = PassthroughSubject<Bool, Never>()
-    
     private var cancellables = Set<AnyCancellable>()
     
     init() {
@@ -50,7 +48,6 @@ class AuthenticationVM {
             .assign(to: \.errorMessage, on: self)
             .store(in: &cancellables)
         
-        // Clear error message when user starts typing again
         Publishers.Merge($emailText, $passwordText)
             .map { _ in nil }
             .assign(to: \.errorMessage, on: self)
@@ -66,46 +63,37 @@ class AuthenticationVM {
     }
     
     @MainActor
-    func performLogin(isBiometric:Bool = false) async -> Bool{
-       
+    func performLogin(isBiometric: Bool = false) async -> Bool {
         let credentials: LoginRequest
         let endPoint = isBiometric ? APIConfig.Endpoints.userBiometric : APIConfig.Endpoints.login
-            
-            if isBiometric {
-                guard let storedUserId = KeychainHelper.shared.read(for: .userId) else {
-                    self.errorMessage = "No user linked to biometrics."
-                    self.isLoading = false
-                    return false
-                }
-                credentials = .biometric(id: storedUserId)
-            } else {
-                credentials = .manual(user: emailText, pass: passwordText)
+        
+        if isBiometric {
+            guard let storedUserId = KeychainHelper.shared.read(for: .userId) else {
+                self.errorMessage = "No user linked to biometrics."
+                return false
             }
+            credentials = .biometric(id: storedUserId)
+        } else {
+            credentials = .manual(user: emailText, pass: passwordText)
+        }
         
         self.isLoading = true
         self.errorMessage = nil
         
         do {
-            let response: LoginResponse = try await apiService.post(
-                endpoint: endPoint,
-                body: credentials
-            )
+            let response: LoginResponse = try await apiService.post(endpoint: endPoint, body: credentials)
             
-            if response.result.state, let token = response.user?.token {
-                KeychainHelper.shared.save(token, for: .apiKey)
+            if response.result.state, let user = response.user {
+                UserManager.shared.login(user: user)
                 
-                if let userId = response.user?.idUser {
-                    KeychainHelper.shared.save("\(userId)", for: .userId)
-                }
-                UserDefaults.standard.set(true, forKey: "kKEY_LOGIN_PREFS")
                 if isBiometric { self.biometricLoginResult.send(true) }
+                self.isLoading = false
+                return true
+            } else {
+                self.errorMessage = "Please enter valid email and password."
+                self.isLoading = false
+                return false
             }
-            
-            self.errorMessage = response.result.state ? nil : "Plase enter valid email and password."
-            self.isLoading = false
-            return response.result.state
-            
-            
         } catch {
             handleError(error)
             self.isLoading = false
@@ -152,20 +140,20 @@ class AuthenticationVM {
     }
     
     func handleBiometricLogin() async {
-            guard PreferenceManager.isHardwareReady else {
-                self.errorMessage = "Biometrics not available or configured."
-                return
-            }
-
-            BiometricManager.shared.authenticate { [weak self] success, error in
-                guard let self = self else { return }
-                if success {
-                    Task { await self.performLogin(isBiometric: true) }
-                } else {
-                    self.errorMessage = error
-                }
+        guard PreferenceManager.isHardwareReady else {
+            self.errorMessage = "Biometrics not available or configured."
+            return
+        }
+        
+        BiometricManager.shared.authenticate { [weak self] success, error in
+            guard let self = self else { return }
+            if success {
+                Task { await self.performLogin(isBiometric: true) }
+            } else {
+                self.errorMessage = error
             }
         }
+    }
     
     private func handleError(_ error: Error) {
         if let apiError = error as? APIError {

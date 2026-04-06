@@ -18,8 +18,8 @@ class InputField: UIView, UITextFieldDelegate {
     
     private let bottomBorder = CALayer()
     var onToggleChanged: ((Bool) -> Void)?
+    var onEdit: ((String) -> Void)?
     
-    // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -30,7 +30,6 @@ class InputField: UIView, UITextFieldDelegate {
         commonInit()
     }
     
-    // MARK: - Actions
     @IBAction func onToggleAction(_ sender: UISwitch) {
         onToggleChanged?(sender.isOn)
     }
@@ -38,9 +37,9 @@ class InputField: UIView, UITextFieldDelegate {
     @IBAction func onPressRigthIcon(_ sender: UIButton) {
         titleLabel.isUserInteractionEnabled = true
         titleLabel.becomeFirstResponder()
+        onEdit?("PASSWORD")
     }
         
-    // MARK: - Layout
     override func layoutSubviews() {
         super.layoutSubviews()
         mainView.layoutIfNeeded()

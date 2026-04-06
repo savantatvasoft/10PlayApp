@@ -16,3 +16,16 @@
 "directional_title" = "DIRECTIONAL(OPTIONAL)";
 "directional_label" = "To dispplay directions and guide you to the next mission";
 "biometric_title" = "BIOMETRIC AUTHENTICATION";
+
+
+"update_password_header" = "UPDATE PASSWORD";
+"current_password_title" = "CURRENT PASSWORD";
+"new_password_title" = "NEW PASSWORD";
+"confirm_password_title" = "CONFIRM PASSWORD";
+"update_button" = "UPDATE";
+"cancel_button" = "CANCEL";
+
+// --- Validation Messages ---
+"passwords_do_not_match" = "The new passwords do not match. Please try again.";
+"password_too_short" = "Password must be at least 8 characters long.";
+"update_success" = "Your profile has been updated successfully.";
