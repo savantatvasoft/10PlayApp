@@ -17,6 +17,7 @@ enum MenuAction {
 class BaseViewController: UIViewController {
 
     let sideMenu = SliderMenu()
+    var enabelBackAction:Bool = false
     private var loadingOverlay: LoadingOverlayView?
 
     override func viewDidLoad() {
@@ -40,7 +41,17 @@ class BaseViewController: UIViewController {
 
     func attachHeader(_ header: Header?) {
         header?.onLeftTap = { [weak self] in
-            self?.toggleMenu()
+            guard let self = self else { return }
+            
+            if self.enabelBackAction {
+                if let nav = self.navigationController {
+                    nav.popViewController(animated: true)
+                } else {
+                    self.dismiss(animated: true)
+                }
+            } else {
+                self.toggleMenu()
+            }
         }
     }
     

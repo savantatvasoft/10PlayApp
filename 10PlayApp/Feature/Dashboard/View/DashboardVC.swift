@@ -46,7 +46,14 @@ class DashboardVC: BaseViewController {
         }
     }
     
+    
+    @IBAction func onPressFilter(_ sender: Any) {
+        self.performSegue(withIdentifier: "navigateToFilter", sender: self)
+    }
+    
 }
+
+
 
 extension DashboardVC {
     

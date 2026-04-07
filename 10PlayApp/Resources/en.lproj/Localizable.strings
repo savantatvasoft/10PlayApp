@@ -32,3 +32,7 @@
 "password_too_short" = "Your new password must be at least 6 characters.";
 "update_success_msg" = "Profile updated successfully!";
 "profile_field_empty_error" = "Please fill in all fields.";
+
+// FILTER
+"filter_list_header" = "Filter The List";
+"project_field" = "PROJECT";
