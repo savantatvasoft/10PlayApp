@@ -74,6 +74,10 @@ class AuthenticationVM {
             }
             credentials = .biometric(id: storedUserId)
         } else {
+            if !passwordText.isEmpty {
+                    KeychainHelper.shared.save(passwordText, for: .userPassword)
+                                print("✅ Password securely cached for session.")
+            }
             credentials = .manual(user: emailText, pass: passwordText)
         }
         
@@ -140,11 +144,11 @@ class AuthenticationVM {
     }
     
     func handleBiometricLogin() async {
-        guard PreferenceManager.isHardwareReady else {
-            self.errorMessage = "Biometrics not available or configured."
-            return
-        }
-        
+//        guard PreferenceManager.isHardwareReady else {
+//            self.errorMessage = "Biometrics not available or configured."
+//            return
+//        }
+//        
         BiometricManager.shared.authenticate { [weak self] success, error in
             guard let self = self else { return }
             if success {
@@ -155,23 +159,31 @@ class AuthenticationVM {
         }
     }
     
+//    private func handleError(_ error: Error) {
+//        if let apiError = error as? APIError {
+//            switch apiError {
+//            case .invalidURL:
+//                self.errorMessage = "There is an issue with the connection path."
+//                
+//            case .noData:
+//                self.errorMessage = "The server returned no information."
+//                
+//            case .decodingError:
+//                self.errorMessage = "We had trouble reading the data from the server."
+//                
+//            case .serverError(let code):
+//                self.errorMessage = "The server is having trouble (Error \(code))."
+//            }
+//        } else {
+//            self.errorMessage = "An unexpected error occurred. Please try again."
+//        }
+//    }
+    
     private func handleError(_ error: Error) {
         if let apiError = error as? APIError {
-            switch apiError {
-            case .invalidURL:
-                self.errorMessage = "There is an issue with the connection path."
-                
-            case .noData:
-                self.errorMessage = "The server returned no information."
-                
-            case .decodingError:
-                self.errorMessage = "We had trouble reading the data from the server."
-                
-            case .serverError(let code):
-                self.errorMessage = "The server is having trouble (Error \(code))."
-            }
+            self.errorMessage = apiError.errorMessage
         } else {
-            self.errorMessage = "An unexpected error occurred. Please try again."
+            self.errorMessage = error.localizedDescription
         }
     }
     

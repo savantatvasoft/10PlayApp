@@ -33,12 +33,11 @@ class UpdatePasswordPopUp: SlidePopUpView {
         self.layer.cornerRadius = 24
         self.clipsToBounds = true
         
-        topTtile.font = AppFont.get(.bold, size: 14)
+        topTtile.font = AppFont.get(.bold, size: 15)
         topTtile.addCharacterSpacing(kernValue: 1.2)
-        
-        // Labels & TextFields
+       
         [firstLabel, secondLabel, thirdLabel].forEach {
-            $0?.font = AppFont.get(.extraBold, size: 12)
+            $0?.font = AppFont.get(.extraBold, size: 13)
             $0?.textColor = .darkGray
         }
         
@@ -73,9 +72,7 @@ class UpdatePasswordPopUp: SlidePopUpView {
     @IBAction func updatePressed(_ sender: UIButton) {
         Task { @MainActor in
             sender.bounce { [weak self] in
-                
-                print("sssssss")
-                
+            
                 guard let self = self else { return }
                 let current = self.firstTextField.text ?? ""
                 let new = self.secondTextField.text ?? ""

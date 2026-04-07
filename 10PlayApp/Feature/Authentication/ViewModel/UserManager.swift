@@ -16,16 +16,19 @@ class UserManager: ObservableObject {
     @Published var isLoggedIn: Bool = false
     
     private init() {
-        self.isLoggedIn = UserDefaults.standard.bool(forKey: "kKEY_LOGIN_PREFS")
+        self.isLoggedIn = UserDefaults.standard.bool(forKey: UserDefaultKeys.isLoggedIn.rawValue)
     }
     
     func login(user: UserData) {
         self.currentUser = user
         self.isLoggedIn = true
-        UserDefaults.standard.set(true, forKey: "kKEY_LOGIN_PREFS")
-        KeychainHelper.shared.save(user.token, for: .apiKey)
+        UserDefaults.standard.set(true, forKey: UserDefaultKeys.isLoggedIn.rawValue)
         
+        if let encoded = try? JSONEncoder().encode(user) {
+            UserDefaults.standard.set(encoded, forKey: UserDefaultKeys.currentUserInfo.rawValue)
+        }
         // MARK: Save UserID for future Biometric logins
+        KeychainHelper.shared.save(user.token, for: .apiKey)
         KeychainHelper.shared.save("\(user.idUser)", for: .userId)
     }
     

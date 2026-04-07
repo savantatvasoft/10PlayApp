@@ -32,7 +32,7 @@ struct LoginResult: Decodable {
     let message: String
 }
 
-struct UserData: Decodable {
+struct UserData: Codable {
     let idUser: Int
     let login: String
     let token: String
@@ -50,7 +50,7 @@ struct UserData: Decodable {
     }
 }
 
-struct Fournisseur: Decodable {
+struct Fournisseur: Codable {
     let idFournisseur: Int
     let nom: String
     let email: String

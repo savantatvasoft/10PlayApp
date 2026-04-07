@@ -209,7 +209,6 @@ extension DashboardVC {
         forgotView.layoutIfNeeded()
         
         forgotView.onConfirm = { [weak self] _ in
-            // Logic for YES (Oui)
             PreferenceManager.hasAskedBiometric = true
             PreferenceManager.isBiometricEnabled = true
         }

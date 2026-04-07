@@ -39,7 +39,7 @@ class AuthenticationVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         keyboardManager?.observeKeyboard()
-        let shouldShowIcon = PreferenceManager.isBiometricEnabled && PreferenceManager.isHardwareReady
+        let shouldShowIcon = PreferenceManager.isBiometricEnabled
         biometericIcon.isHidden = !shouldShowIcon
     }
     
@@ -174,18 +174,7 @@ extension AuthenticationVC {
     }
     
     private func showValidationPopup(message: String, isSuccess: Bool) {
-        guard let popup = Bundle.main.loadNibNamed("ValidationMsgPopUp", owner: nil)?.first as? ValidationMsgPopUp else { return }
-        
-        popup.configure(with: message, isSuccess: isSuccess)
-        
-        let popupWidth = self.view.frame.width * 0.75
-        let targetSize = CGSize(width: popupWidth, height: UIView.layoutFittingCompressedSize.height)
-        let dynamicSize = popup.systemLayoutSizeFitting(targetSize,
-                                                        withHorizontalFittingPriority: .required,
-                                                        verticalFittingPriority: .fittingSizeLevel)
-        
-        popup.frame = CGRect(x: 0, y: 0, width: popupWidth, height: dynamicSize.height)
-        popup.show(in: self.view)
+        ValidationMsgPopUp.show(on: self, message: message,isSucsess: isSuccess)
     }
     
     private func setupFonts() {
@@ -210,7 +199,7 @@ extension AuthenticationVC {
     private func showLoader() {
         guard loadingOverlay == nil else { return }
         
-        let overlay = LoadingOverlayView(message: "AUTHENTICATION")
+        let overlay = LoadingOverlayView(message: "AUTHENTICATION",isTransparent: false)
         overlay.frame = self.view.bounds
         overlay.alpha = 0
         

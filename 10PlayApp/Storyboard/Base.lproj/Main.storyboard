@@ -628,10 +628,10 @@
             </objects>
             <point key="canvasLocation" x="1811.4503816793892" y="136.61971830985917"/>
         </scene>
-        <!--AccountVC-->
+        <!--ProfileVC-->
         <scene sceneID="7o0-r2-YnI">
             <objects>
-                <viewController storyboardIdentifier="AccountVC" id="her-M9-cfV" customClass="AccountVC" customModule="_0PlayApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountVC" id="her-M9-cfV" customClass="ProfileVC" customModule="_0PlayApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aA8-YL-oSE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -650,10 +650,10 @@
                                         <rect key="frame" x="0.0" y="110" width="393" height="742"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8M-Lm-DZY" userLabel="ScrollContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="408"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="384"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Vc3-f8-Sid">
-                                                        <rect key="frame" x="0.0" y="10" width="393" height="398"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Vc3-f8-Sid">
+                                                        <rect key="frame" x="0.0" y="10" width="393" height="374"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0l-PS-YMZ" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
@@ -663,42 +663,42 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hF3-ls-IJH" userLabel="LastName" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="58" width="393" height="50"/>
+                                                                <rect key="frame" x="0.0" y="54" width="393" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="25U-Vf-m3n"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmE-t9-vya" userLabel="phoneNumber" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="116" width="393" height="50"/>
+                                                                <rect key="frame" x="0.0" y="108" width="393" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="LT7-4m-oOo"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v4Q-np-FMo" userLabel="email" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="174" width="393" height="50"/>
+                                                                <rect key="frame" x="0.0" y="162" width="393" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="3uP-GI-h7v"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOW-BL-eDD" userLabel="password" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="232" width="393" height="50"/>
+                                                                <rect key="frame" x="0.0" y="216" width="393" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="aZ4-gd-gN0"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHC-WN-O4d" userLabel="Directional" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="290" width="393" height="50"/>
+                                                                <rect key="frame" x="0.0" y="270" width="393" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="WLw-Pi-Tvr"/>
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yUG-C1-aHd" userLabel="Biometric" customClass="InputField" customModule="_0PlayApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="348" width="393" height="50"/>
+                                                                <rect key="frame" x="0.0" y="324" width="393" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="50" id="aIp-yw-5rW"/>
@@ -735,6 +735,9 @@
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="SAVE" cornerStyle="capsule"/>
+                                                <connections>
+                                                    <action selector="onSave:" destination="her-M9-cfV" eventType="touchUpInside" id="9MQ-mp-c6B"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

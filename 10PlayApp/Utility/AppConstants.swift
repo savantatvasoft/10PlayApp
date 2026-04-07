@@ -16,17 +16,22 @@ struct APIConfig {
         static let login = "/login"
         static let forgotPassword = "/forgot-password"
         static let userBiometric = "/biometric-login"
+        static let updatePassword = "/update-password"
+        static let updateUser = "/update-user"
     }
 }
 
 enum KeychainKeys: String {
     case apiKey = "kKEY_APIKEY_PREFS"
     case userId = "kKEY_USERID"
+    case userPassword = "kKEY_MDP_PREFS"
 }
 
 enum UserDefaultKeys: String {
     case isBiometricEnabled = "kKEY_IS_BIOMETRIC_ENABLED"
     case hasAskedBiometric = "hasAskedBiometric"
     case userEmail = "kKEY_SAVED_EMAIL"
+    case currentUserInfo = "kSAVED_USER_DATA"
+    case isLoggedIn = "kKEY_LOGIN_PREFS"
 }
 

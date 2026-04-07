@@ -19,6 +19,7 @@ class ForgotPasswordPopUp: SlidePopUpView {
     
     @IBOutlet weak var textFieldContainer: UIView!
     var onConfirm: ((String) -> Void)?
+    var onCancel: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,6 +50,7 @@ class ForgotPasswordPopUp: SlidePopUpView {
         Task { @MainActor in
             sender.bounce { [weak self] in
                 Task { @MainActor in
+                    self?.onCancel?()
                     self?.dismiss()
                 }
             }

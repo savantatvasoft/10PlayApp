@@ -33,7 +33,6 @@ class SlidePopUpView: UIView {
         
         parentView.addSubview(self)
         
-        // Fix for stretching: Cap the width for landscape (configurable)
         if shouldAutoCapWidth {
             updateFrameForOrientation(in: parentView)
         }

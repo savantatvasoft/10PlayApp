@@ -17,6 +17,7 @@ enum MenuAction {
 class BaseViewController: UIViewController {
 
     let sideMenu = SliderMenu()
+    private var loadingOverlay: LoadingOverlayView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +29,7 @@ class BaseViewController: UIViewController {
             self?.handleMenuAction(action)
         }
     }
-
-    // MARK: - Menu Control
-
+    
     func toggleMenu() {
         if sideMenu.superview != nil {
             sideMenu.hide()
@@ -42,6 +41,31 @@ class BaseViewController: UIViewController {
     func attachHeader(_ header: Header?) {
         header?.onLeftTap = { [weak self] in
             self?.toggleMenu()
+        }
+    }
+    
+    func toggleLoader(show: Bool, message: String? = nil, isTransparent: Bool = false) {
+        if show {
+            if let existing = loadingOverlay { return }
+            let overlay = LoadingOverlayView(message: message, isTransparent: isTransparent)
+            overlay.frame = self.view.bounds
+            overlay.alpha = 0
+            
+            self.view.addSubview(overlay)
+            self.loadingOverlay = overlay
+            
+            UIView.animate(withDuration: 0.3) {
+                overlay.alpha = 1
+            }
+        } else {
+            guard let overlay = loadingOverlay else { return }
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                overlay.alpha = 0
+            }) { _ in
+                overlay.removeFromSuperview()
+                self.loadingOverlay = nil
+            }
         }
     }
 }
@@ -62,7 +86,6 @@ extension BaseViewController {
     }
 
     func navigateToHome() {
-        // Prevent duplicate navigation
         if self is DashboardVC { return }
 
         let vc = storyboard?.instantiateViewController(
@@ -73,11 +96,11 @@ extension BaseViewController {
     }
 
     func navigateToAccount() {
-        if self is AccountVC { return }
+        if self is ProfileVC { return }
 
         let vc = storyboard?.instantiateViewController(
             withIdentifier: "AccountVC"
-        ) as! AccountVC
+        ) as! ProfileVC
 
         navigationController?.pushViewController(vc, animated: true)
     }

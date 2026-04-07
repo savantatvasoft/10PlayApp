@@ -16,6 +16,15 @@ class InputField: UIView, UITextFieldDelegate {
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var rightSwitch: UISwitch!
     
+    var text: String {
+        get {
+            return titleLabel.text ?? ""
+        }
+        set {
+            titleLabel.text = newValue
+        }
+    }
+    
     private let bottomBorder = CALayer()
     var onToggleChanged: ((Bool) -> Void)?
     var onEdit: ((String) -> Void)?
@@ -39,7 +48,7 @@ class InputField: UIView, UITextFieldDelegate {
         titleLabel.becomeFirstResponder()
         onEdit?("PASSWORD")
     }
-        
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         mainView.layoutIfNeeded()
