@@ -36,3 +36,17 @@
 // FILTER
 "filter_list_header" = "Filter The List";
 "project_field" = "PROJECT";
+"mission_field" = "MISSION STATUS";
+"region_field" = "REGION";
+"apartment_field" = "APARTMENT";
+"canton_field" = "CANTON";
+"government_field" = "GOVERNMENT";
+"project_default" = "LYRE";
+"mission_default" = "Mission Field";
+"region_default" = "Select region";
+"apartment_default" = "Select apartment";
+"canton_default" = "Select canton";
+"government_default" = "Select government";
+"all_regions" = "Toutes les régions";
+"auvergne_rhone_alpes" = "Auvergne-Rhône-Alpes";
+"bretagne" = "Bretagne";

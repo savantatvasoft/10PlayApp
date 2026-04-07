@@ -816,16 +816,51 @@
                                         <rect key="frame" x="0.0" y="110" width="393" height="742"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gi0-vg-ZdM" userLabel="ScrollContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="80"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="381"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Tzx-CV-OCC">
-                                                        <rect key="frame" x="12" y="0.0" width="369" height="80"/>
+                                                        <rect key="frame" x="16" y="16" width="361" height="365"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXO-zK-vfn" customClass="DropDownContainer" customModule="_0PlayApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="369" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="361" height="65"/>
                                                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="80" id="IQl-6g-wng"/>
+                                                                    <constraint firstAttribute="height" constant="65" id="IQl-6g-wng"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4E-nD-DP0" customClass="DropDownContainer" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="65" width="361" height="60"/>
+                                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="fvx-Rj-By5"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CZh-KP-EU5" userLabel="Region Drop Down Container" customClass="DropDownContainer" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="125" width="361" height="60"/>
+                                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="klH-TT-wXM"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cBd-B0-3NG" userLabel="ApartmentDropDownContainer" customClass="DropDownContainer" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="185" width="361" height="60"/>
+                                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="5Mz-b9-gzq"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fUv-zf-iK2" userLabel="cantionDropDownContainer" customClass="DropDownContainer" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="245" width="361" height="60"/>
+                                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="VuV-Rw-8Q3"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vnB-ZY-Hsh" userLabel="govtDropDownContainer" customClass="DropDownContainer" customModule="_0PlayApp" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="305" width="361" height="60"/>
+                                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="pMk-Ft-LsL"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -833,10 +868,10 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="Tzx-CV-OCC" firstAttribute="leading" secondItem="gi0-vg-ZdM" secondAttribute="leading" constant="12" id="131-2c-ijT"/>
-                                                    <constraint firstItem="Tzx-CV-OCC" firstAttribute="top" secondItem="gi0-vg-ZdM" secondAttribute="top" id="6dT-7A-MAr"/>
+                                                    <constraint firstItem="Tzx-CV-OCC" firstAttribute="leading" secondItem="gi0-vg-ZdM" secondAttribute="leading" constant="16" id="131-2c-ijT"/>
+                                                    <constraint firstItem="Tzx-CV-OCC" firstAttribute="top" secondItem="gi0-vg-ZdM" secondAttribute="top" constant="16" id="6dT-7A-MAr"/>
                                                     <constraint firstAttribute="bottom" secondItem="Tzx-CV-OCC" secondAttribute="bottom" id="q1W-rd-PeV"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Tzx-CV-OCC" secondAttribute="trailing" constant="12" id="tTp-uE-AyH"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Tzx-CV-OCC" secondAttribute="trailing" constant="16" id="tTp-uE-AyH"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -874,8 +909,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="KHo-v7-gjN"/>
                     <connections>
+                        <outlet property="apartmentDropDownContainer" destination="cBd-B0-3NG" id="V2E-qK-23a"/>
+                        <outlet property="cantionDropDownContainer" destination="fUv-zf-iK2" id="5cW-j4-26B"/>
+                        <outlet property="govtDropDownContainer" destination="vnB-ZY-Hsh" id="Pqq-7p-f6E"/>
                         <outlet property="header" destination="SRw-mP-tIb" id="svO-z9-C1t"/>
+                        <outlet property="missionStatus" destination="R4E-nD-DP0" id="fQK-u3-ilB"/>
                         <outlet property="projectDropDownContainer" destination="PXO-zK-vfn" id="rjP-GP-2e1"/>
+                        <outlet property="regionDropDownContainer" destination="CZh-KP-EU5" id="kzJ-LY-i4P"/>
                         <outlet property="scrollview" destination="VFs-nu-YxV" id="vr8-Ik-XKV"/>
                     </connections>
                 </viewController>
