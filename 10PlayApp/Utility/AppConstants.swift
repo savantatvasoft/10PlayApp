@@ -35,3 +35,9 @@ enum UserDefaultKeys: String {
     case isLoggedIn = "kKEY_LOGIN_PREFS"
 }
 
+
+enum NavigationKeys: String  {
+    case filter = "navigateToFilter"
+    case signals = "navigateToSignals"
+    case filterMap = "FilterMapVC"
+}

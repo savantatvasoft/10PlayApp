@@ -148,6 +148,7 @@
 				DEVELOPMENT_TEAM = CRTHLKVC56;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = 10PlayApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "10Play.io uses Face ID to provide a faster and more secure login experience.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -181,6 +182,7 @@
 				DEVELOPMENT_TEAM = CRTHLKVC56;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = 10PlayApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "10Play.io uses Face ID to provide a faster and more secure login experience.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

@@ -117,7 +117,13 @@ extension BaseViewController {
     }
 
     func navigateToContact() {
-        print("Navigate to Contact")
+        if self is ContactVC { return }
+
+        let vc = storyboard?.instantiateViewController(
+            withIdentifier: "ContactVC"
+        ) as! ContactVC
+
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     func handleLogout() {

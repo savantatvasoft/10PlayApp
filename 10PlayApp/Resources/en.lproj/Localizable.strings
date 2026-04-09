@@ -50,3 +50,39 @@
 "all_regions" = "Toutes les régions";
 "auvergne_rhone_alpes" = "Auvergne-Rhône-Alpes";
 "bretagne" = "Bretagne";
+
+
+"conatct_header" = "CONTACT";
+"contact_section_company" = "10Play.io";
+"contact_email_company" = "Send an email to 10Play.io";
+"contact_call_company" = "Call 10Play.io";
+
+"contact_section_manager" = "MANAGER";
+"contact_email_manager" = "Send an email to your manager";
+"contact_call_manager" = "Call your manager";
+
+/* Filter Screen */
+"filter_header_title" = "LRYE";
+"filter_remaining" = "Remaining missions to complete";
+"filter_completed" = "Completed missions";
+"filter_impossible" = "Impossible missions";
+"filter_new" = "New missions";
+"filter_all" = "All missions";
+
+"address_ville_title" = "City : ";
+"address_adresse_title" = "Address : ";
+"list_missions" = "List Of Missions";
+
+"signal_title" = "Signals Absent";
+"project_name" = "PROJECT NAME";
+
+"location_address" = "LOCATION ADDRESS";
+"city" = "CITY";
+"street" = "STREET";
+"code" = "CODE POSTAL";
+"photo" = "PHOTOS";
+"photo_desc" = "Click on the following icons to take a photo. These photos are required for mission validation.";
+"comment" = "COMMENT";
+"add_commnt" = "Add a comment";
+"rating" = "RATING";
+"mission_alert" = "Do you want to add this new mission ?";

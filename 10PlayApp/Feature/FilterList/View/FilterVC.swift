@@ -11,17 +11,15 @@ class FilterVC: BaseViewController {
 
     @IBOutlet weak var header: Header!
     @IBOutlet weak var scrollview: UIScrollView!
-    
     @IBOutlet weak var projectDropDownContainer: DropDownContainer!
     @IBOutlet weak var missionStatus: DropDownContainer!
-    
     @IBOutlet weak var regionDropDownContainer: DropDownContainer!
-    
     @IBOutlet weak var apartmentDropDownContainer: DropDownContainer!
-    
     @IBOutlet weak var cantionDropDownContainer: DropDownContainer!
-    
     @IBOutlet weak var govtDropDownContainer: DropDownContainer!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var filterBtn: UIButton!
+    @IBOutlet weak var resetBtn: UIButton!
     
     
     override func viewDidLoad() {
@@ -33,48 +31,31 @@ class FilterVC: BaseViewController {
         header.centerTitle.isHidden = false
         if let backImage = UIImage(named: "Ico_back_nav_menu") {
             header.leftImage.setImage(backImage, for: .normal)
+            header.rightImage.setImage(UIImage(named: "ic_10_play_white"), for: .normal)
         }
+        setUp()
         attachHeader(header)
         setUPDropDownContainer()
+        setupBottomViewStyle()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let shadowRect = bottomView.bounds
+        bottomView.layer.shadowPath = UIBezierPath(rect: shadowRect).cgPath
+    }
+    
+    @IBAction func onFilter(_ sender: Any) {
+        self.performSegue(withIdentifier: "naviagteToListOfMissions", sender: self)
+    }
+    
+    @IBAction func onReset(_ sender: Any) {
+    }
 }
 
 
 extension FilterVC {
-
-    private var regionItems: [DropDownItem] {
-        [
-            DropDownItem(id: "0", title: "all_regions".localized),
-            DropDownItem(id: "1", title: "auvergne_rhone_alpes".localized),
-            DropDownItem(id: "2", title: "bretagne".localized)
-        ]
-    }
     
-    private var  regionsData:[DropDownItem] {
-        [
-            DropDownItem(id: "0", title: "Toutes les régions"),
-            DropDownItem(id: "1", title: "Auvergne-Rhône-Alpes"),
-            DropDownItem(id: "2", title: "Bourgogne-Franche-Comté"),
-            DropDownItem(id: "3", title: "Bretagne"),
-            DropDownItem(id: "4", title: "Centre-Val de Loire"),
-            DropDownItem(id: "5", title: "Corse"),
-            DropDownItem(id: "6", title: "Grand Est"),
-            DropDownItem(id: "7", title: "Haut de France"),
-            DropDownItem(id: "8", title: "Île-de-France"),
-            DropDownItem(id: "9", title: "Normandie"),
-            DropDownItem(id: "10", title: "Nouvelle Aquitaine"),
-            DropDownItem(id: "11", title: "Occitanie"),
-            DropDownItem(id: "12", title: "Pays de la Loire")
-        ]
-    }
-
-    private var projectItems: [DropDownItem] { regionItems }
-    private var missionStatusItems: [DropDownItem] { regionItems }
-    private var apartmentItems: [DropDownItem] { regionsData }
-    private var cantonItems: [DropDownItem] { regionItems }
-    private var governmentItems: [DropDownItem] { regionItems }
-
     func setUPDropDownContainer() {
         projectDropDownContainer.configure(
             label: "project_field".localized,
@@ -111,5 +92,19 @@ extension FilterVC {
             title: "government_default".localized,
             items: governmentItems
         )
+    }
+    
+    func setUp() {
+        filterBtn.setStyle(weight: .bold, size: 14,verticalPadding: 8)
+        resetBtn.setStyle(weight: .extraBold, size: 14,verticalPadding: 8)
+    }
+    
+    private func setupBottomViewStyle() {
+        bottomView.layer.shadowColor = UIColor.black.cgColor
+        bottomView.layer.shadowOpacity = 0.2
+        bottomView.layer.shadowRadius = 10.0
+        bottomView.layer.shadowOffset = CGSize(width: 0, height: -5)
+        bottomView.layer.masksToBounds = false
+        bottomView.clipsToBounds = false
     }
 }

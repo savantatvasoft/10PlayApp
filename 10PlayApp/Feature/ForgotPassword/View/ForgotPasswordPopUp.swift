@@ -71,7 +71,6 @@ class ForgotPasswordPopUp: SlidePopUpView {
     }
 }
 
-// MARK: - UITextFieldDelegate
 extension ForgotPasswordPopUp: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         let text = textField.text ?? ""
@@ -80,5 +79,47 @@ extension ForgotPasswordPopUp: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension ForgotPasswordPopUp {
+    
+    static func show(
+        in view: UIView,
+        title: String = "10Play.io",
+        message: String,
+        onConfirm: ((String) -> Void)? = nil,
+        onCancel: (() -> Void)? = nil
+    ) {
+        guard let popup = Bundle.main.loadNibNamed("ForgotPasswordPopUp", owner: nil)?.first as? ForgotPasswordPopUp else { return }
+        
+      
+        popup.headerLabel.text          = title
+        popup.headerLabel.textAlignment = .center
+        popup.headerLabel.font          = AppFont.get(.bold, size: 16)
+        
+        popup.emailLabel.text          = message
+        popup.emailLabel.font          = AppFont.get(.regular, size: 14)
+        popup.emailLabel.numberOfLines = 0
+        popup.emailLabel.lineBreakMode = .byWordWrapping
+        popup.emailLabel.textAlignment = .left
+        
+        popup.textFieldContainer.isHidden = true
+        popup.emailTextField.isHidden     = true
+        
+        let popupWidth   = view.frame.width * 0.7
+        let targetSize   = CGSize(width: popupWidth, height: UIView.layoutFittingCompressedSize.height)
+        let dynamicSize  = popup.systemLayoutSizeFitting(
+            targetSize,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+        popup.frame = CGRect(x: 0, y: 0, width: popupWidth, height: dynamicSize.height + 40)
+        popup.entryDirection = "left"
+        popup.exitDirection  = "right"
+        popup.layoutIfNeeded()
+        popup.onConfirm = onConfirm
+        popup.onCancel  = onCancel
+        popup.show(in: view)
     }
 }

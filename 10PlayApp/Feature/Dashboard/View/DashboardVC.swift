@@ -24,6 +24,8 @@ class DashboardVC: BaseViewController {
     @IBOutlet weak var newMIssionContainer: UIStackView!
     @IBOutlet weak var signalsConatiner: UIStackView!
     
+    private var sheetDelegate: BottomSheetTransitionDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -48,9 +50,30 @@ class DashboardVC: BaseViewController {
     
     
     @IBAction func onPressFilter(_ sender: Any) {
-        self.performSegue(withIdentifier: "navigateToFilter", sender: self)
+        self.performSegue(withIdentifier: NavigationKeys.filter.rawValue, sender: self)
     }
     
+    @IBAction func onPressFilterMap(_ sender: Any) {
+        openFilterMap()
+    }
+    
+    @IBAction func onPressSignals(_ sender: Any) {
+        self.performSegue(withIdentifier: NavigationKeys.signals.rawValue, sender: self)
+    }
+    
+    func openFilterMap() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let filterMapVC = storyboard.instantiateViewController(withIdentifier: NavigationKeys.filterMap.rawValue)
+        
+        let delegate = BottomSheetTransitionDelegate(height: 320)
+        sheetDelegate = delegate
+        
+        filterMapVC.modalPresentationStyle = .custom
+        filterMapVC.transitioningDelegate = delegate
+        
+        present(filterMapVC, animated: true)
+    }
+
 }
 
 
