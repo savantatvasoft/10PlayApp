@@ -9,8 +9,7 @@ import UIKit
 
 @IBDesignable
 extension UIView {
-    
-    // MARK: - Find First Responder
+  
     func findFirstResponder() -> UIView? {
         if self.isFirstResponder { return self }
         for subview in subviews {
@@ -21,7 +20,6 @@ extension UIView {
         return nil
     }
     
-    // MARK: - Corner Radius
     @IBInspectable var cornerRadius: CGFloat {
         get { layer.cornerRadius }
         set {
@@ -30,7 +28,6 @@ extension UIView {
         }
     }
     
-    // MARK: - Border Width
     @IBInspectable var borderWidth: CGFloat {
         get { layer.borderWidth }
         set {
@@ -38,7 +35,6 @@ extension UIView {
         }
     }
     
-    // MARK: - Border Color
     @IBInspectable var borderColor: UIColor? {
         get {
             guard let cgColor = layer.borderColor else { return nil }
@@ -56,7 +52,14 @@ extension UIView {
 
     @IBInspectable var shadowOpacity: Float {
         get { layer.shadowOpacity }
-        set { layer.shadowOpacity = newValue }
+        set {
+            layer.shadowOpacity = newValue
+            layer.masksToBounds = false
+            layer.shadowPath = UIBezierPath(
+                roundedRect: bounds,
+                cornerRadius: layer.cornerRadius
+            ).cgPath
+        }
     }
 
     @IBInspectable var shadowOffset: CGSize {
@@ -104,5 +107,12 @@ extension UIView {
               }
           }
       }
+    
+    
+    func addTapGesture(target: Any, action: Selector) {
+        isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: target, action: action)
+        addGestureRecognizer(tap)
+    }
     
 }

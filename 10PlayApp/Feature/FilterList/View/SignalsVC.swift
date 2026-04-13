@@ -169,7 +169,8 @@ extension SignalsVC {
     
     private func updateRatingUI() {
         ratingButtons.enumerated().forEach { i, button in
-            button.tintColor = i < currentRating ? UIColor(named: "Yellow")  : .systemGray4
+            let imageName = i < currentRating ? "Star_selected" : "Star_unselected"
+            button.setImage(UIImage(named: imageName), for: .normal)
         }
     }
 }
@@ -219,9 +220,7 @@ extension SignalsVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         button.contentVerticalAlignment = .fill
         button.contentHorizontalAlignment = .fill
         button.clipsToBounds = true
-        button.layer.cornerRadius = 8  // ← consistent corner radius
-        button.contentEdgeInsets = .zero  // ← remove any padding
-        button.imageEdgeInsets = .zero    // ← remove image insets
+        button.layer.cornerRadius = 8
     }
     
     private func setupImageButtons() {

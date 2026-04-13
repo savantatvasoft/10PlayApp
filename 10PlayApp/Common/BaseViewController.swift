@@ -18,6 +18,7 @@ class BaseViewController: UIViewController {
 
     let sideMenu = SliderMenu()
     var enabelBackAction:Bool = false
+    
     private var loadingOverlay: LoadingOverlayView?
 
     override func viewDidLoad() {
@@ -38,20 +39,22 @@ class BaseViewController: UIViewController {
             sideMenu.show(in: view)
         }
     }
+    
+    func onHeaderRightTap() {}
 
     func attachHeader(_ header: Header?) {
         header?.onLeftTap = { [weak self] in
             guard let self = self else { return }
             
             if self.enabelBackAction {
-                if let nav = self.navigationController {
-                    nav.popViewController(animated: true)
-                } else {
-                    self.dismiss(animated: true)
-                }
+                self.navigationController?.popViewController(animated: true)
             } else {
                 self.toggleMenu()
             }
+        }
+        
+        header?.onRightTap = { [weak self] in
+            self?.onHeaderRightTap()
         }
     }
     
